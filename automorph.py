@@ -6,25 +6,20 @@ import random
 import pyperclip
 
 # User and outfit settings
-# To include quotation marks within the display tags, put \" inside
-# For example, the code for "Cloud" would be:
-# name_tag = "\"Cloud\""
 username = ""  # Roblox username or "me"
 name_tag = ""
 rank_tag = ""
-# Accessory List:
-# Use the list if you want to keep track of what ID is what
 accessories_id = ""  # Format: 1234567890,1234567890,1234567890, etc...
 startergears = ""
 team = ""
 can_random_kill = True
 max_health = 100
 scale = 1
-basekit = False # If True, uses Site-68's basekit to clear your existing avatar of all accessories
-permanent = True # If True, uses the perm- prefix in commands for a permantent character.
-mod = True # If True, assumes you have mod permissions to morph yourself.
-tntag = False # If True, hides NAME tag from display
-trtag = False # If True, hides RANK tag from display
+basekit = False  # If True, uses Site-68's basekit to clear your existing avatar of all accessories
+permanent = True  # If True, uses the perm- prefix in commands for a permantent character.
+mod = True  # If True, assumes you have mod permissions to morph yourself.
+tntag = False  # If True, hides NAME tag from display
+trtag = False  # If True, hides RANK tag from display
 faceid = ""
 color_ntag = ""  # Format: RRR GGG BBB
 color_rtag = ""  # Format: RRR GGG BBB
@@ -35,7 +30,7 @@ chat_start_keybind = "/"
 send_message_keybind = "return"
 delay = 0.0  # Delay between each command sent in SECONDS
 interval = 0.0  # Delay of steps when sending individual commands in SECONDS.
-user_choice = "random" # Set this string value to either 'random' or the name of a specific outfit
+user_choice = "random"  # Set this string value to either 'random' or the name of a specific outfit
 
 outfits = {
     "OutfitName": (000, 000)  # Replace with the classic clothing accessories in the format: (ShirtID, PantsID)
@@ -106,6 +101,7 @@ def send_command(command):
 
 def main():
     start_time = time.time()
+    previous_clipboard = pyperclip.paste()
     if mod:
         send_command("/c system")
     for command in commands:
@@ -116,9 +112,9 @@ def main():
     if mod:
         pyautogui.press(chat_start_keybind)
         pyautogui.press('backspace')
-    pyperclip.copy("a")
-    end_time = time.time()  # Record the end time
+    end_time = time.time()
     duration = end_time - start_time
+    pyperclip.copy(previous_clipboard)
     print(f"Total execution time: {duration:.2f} seconds")
     print("Morphing Finished! Input any key to exit...")
     input()
