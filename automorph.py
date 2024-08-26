@@ -73,7 +73,6 @@ command_map = {
 
 commands = [
     f"{command_prefix}clearstartergear {username}",
-    f"{command_prefix}permdamagemultiplier {username} 2",
     f"{command_prefix}unpermall {username}",
     f"{command_prefix}{command_map['shirt'][0 if permanent else 1]} {username} {chosen_outfit[0]} {chosen_outfit[1]}"
 ]
