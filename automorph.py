@@ -126,6 +126,9 @@ def main():
     if mod:
         pyautogui.press(chat_start_keybind)
         pyautogui.press('backspace')
+    pyperclip.copy("a")
+    print("Morphing Finished! Input any key to exit...")
+    input()
 
 if __name__ == "__main__":
     main()
