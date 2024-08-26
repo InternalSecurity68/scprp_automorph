@@ -5,6 +5,8 @@ import keyboard
 import random
 import pyperclip
 
+# WARNING, DO NOT MULTITASK WHILE THE SCRIPT IS RUNNING OR ELSE YOU WILL DISRUPT THE PROCESS
+
 # User and outfit settings
 username = ""  # Roblox username or "me"
 name_tag = ""
