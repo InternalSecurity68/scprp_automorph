@@ -31,6 +31,8 @@ The script copies each command to the clipboard using the `pyperclip` library. T
   - `:cntag`
   - `:crtag`
   - `:skin`
+-  And lastly, a timer to benchmark how fast the morphing process took.
+  - _The script executes at approximately 1.3 commands per second under optimal conditions._
 
 ## Prerequisites
 
