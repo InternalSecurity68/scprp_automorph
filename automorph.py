@@ -25,6 +25,7 @@ trtag = False  # If True, hides RANK tag from display
 faceid = ""
 color_ntag = ""  # Format: RRR GGG BBB
 color_rtag = ""  # Format: RRR GGG BBB
+color_skin = ""  # Format: RRR GGG BBB
 
 # Settings
 command_prefix = ":"
@@ -34,7 +35,7 @@ delay = 0.0  # Delay between each command sent in SECONDS
 interval = 0.0  # Delay of steps when sending individual commands in SECONDS.
 user_choice = "random"  # Set this string value to either 'random' or the name of a specific outfit
 
-outfits = {
+outfits = { # feel free to add multiple outfits if you know how python lists work!
     "OutfitName": (000, 000)  # Replace with the classic clothing accessories in the format: (ShirtID, PantsID)
 }
 
@@ -46,7 +47,6 @@ def select_outfit(choice):
 outfit_name, chosen_outfit = select_outfit(user_choice)
 print(f"Chosen outfit: {outfit_name}")
 
-# Command mapping
 command_map = {
     "shirt": "permshirt" if permanent else "shirt",
     "morph": "permmorph" if permanent else "morph",
@@ -60,10 +60,10 @@ command_map = {
     "face": "permface" if permanent else "face",
     "maxhealth": "permmaxhealth" if permanent else "maxhealth",
     "scale": "permscale" if permanent else "scale",
-    "canrk": "permcanrk" if permanent else "canrk"
+    "canrk": "permcanrk" if permanent else "canrk",
+    "skin": "permskin" if permanent else "skin"
 }
 
-# Building the command list
 commands = [
     f"{command_prefix}clearstartergear {username}",
     f"{command_prefix}unpermall {username}",
@@ -79,6 +79,7 @@ optional_commands = [
     (name_tag, f"{command_prefix}{command_map['ntag']} {username} {name_tag}"),
     (rank_tag, f"{command_prefix}{command_map['rtag']} {username} {rank_tag}"),
     (team, f"{command_prefix}team {username} {team}"),
+    (color_skin, f"{command_prefix}{command_map['skin']} {username} {color_skin}"),
     (color_ntag, f"{command_prefix}{command_map['cntag']} {username} {color_ntag}"),
     (color_rtag, f"{command_prefix}{command_map['crtag']} {username} {color_rtag}"),
     (max_health != 100, f"{command_prefix}{command_map['maxhealth']} {username} {max_health}"),
@@ -88,33 +89,31 @@ optional_commands = [
     (startergears, f"{command_prefix}startergear {username} {startergears}")
 ]
 
-# Append optional commands if the condition is met
 commands += [cmd for cond, cmd in optional_commands if cond]
 
 def send_command(command):
     pyperclip.copy(command)
     autoit.win_activate("Roblox")
-    time.sleep(interval)
+    time.sleep(delay)
     pyautogui.press(chat_start_keybind)
-    time.sleep(interval)
+    time.sleep(delay)
     pyautogui.hotkey("ctrl", "v")
-    time.sleep(interval)
+    time.sleep(delay)
     keyboard.send("enter")
 
 def main():
-    start_time = time.time()
     previous_clipboard = pyperclip.paste()
+    start_time = time.time()
     if mod:
         send_command("/c system")
     for command in commands:
         print(command)
         if mod:
             send_command(command)
-            time.sleep(delay)
-    if mod:
-        pyautogui.press(chat_start_keybind)
-        pyautogui.press('backspace')
+            time.sleep(interval)
     end_time = time.time()
+    if mod:
+        send_command("/c all")
     duration = end_time - start_time
     pyperclip.copy(previous_clipboard)
     print(f"Total execution time: {duration:.2f} seconds")
